@@ -1,0 +1,21 @@
+<div class="photo-container">
+    <img src="us.jpg" alt="Our Favorite Memory" id="valentinesPhoto">
+</div>
+
+<style>
+    /* Add this to your <style> section */
+    .photo-container {
+        margin-bottom: 20px;
+    }
+    #valentinesPhoto {
+        width: 300px;
+        height: auto;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border: 5px solid white;
+        transition: transform 0.3s ease;
+    }
+    #valentinesPhoto:hover {
+        transform: scale(1.05) rotate(-2deg);
+    }
+</style>
