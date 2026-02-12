@@ -7,17 +7,17 @@
     <title>Urgent Question</title>
     <style>
         :root { --primary-pink: #ff4d6d; --dark-pink: #d63384; --bg: #fff0f3; }
-        body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: var(--bg); font-family: 'Arial', sans-serif; overflow: hidden; }
-        #main-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(214, 51, 132, 0.2); text-align: center; width: 350px; position: relative; z-index: 10; }
+        body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: var(--bg); font-family: 'Arial', sans-serif; }
+        #main-card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(214, 51, 132, 0.2); text-align: center; width: 85%; max-width: 350px; }
         #valentinesPhoto { width: 100%; border-radius: 15px; margin-bottom: 20px; border: 3px solid var(--bg); }
-        h1 { color: var(--dark-pink); font-size: 1.5rem; }
-        .btn-wrapper { margin-top: 30px; display: flex; justify-content: space-around; height: 50px; position: relative; }
-        button { padding: 12px 25px; font-size: 1rem; font-weight: bold; cursor: pointer; border-radius: 50px; border: none; transition: 0.2s; }
-        #yesBtn { background-color: var(--primary-pink); color: white; }
-        #noBtn { background-color: #ced4da; color: #495057; position: absolute; transition: 0.1s ease-out; }
-        #giftArea { display: none; animation: fadeIn 1s ease-in; }
+        h1 { color: var(--dark-pink); font-size: 1.4rem; min-height: 3.5rem; display: flex; align-items: center; justify-content: center; }
+        .btn-wrapper { margin-top: 20px; display: flex; flex-direction: column; gap: 15px; align-items: center; }
+        button { width: 100%; padding: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; border-radius: 50px; border: none; transition: 0.2s; }
+        #yesBtn { background-color: var(--primary-pink); color: white; order: 1; }
+        #noBtn { background-color: #ced4da; color: #495057; order: 2; }
+        #giftArea { display: none; animation: fadeIn 0.8s ease-in; }
         .gift-box { margin-top: 20px; padding: 15px; border: 2px dashed var(--primary-pink); background: #fff9fa; }
-        .claim-code { font-family: monospace; font-size: 1.2rem; color: var(--dark-pink); display: block; margin: 10px 0; background: #eee; }
+        .claim-code { font-family: monospace; font-size: 1.1rem; color: var(--dark-pink); display: block; margin: 10px 0; background: #eee; padding: 10px; border-radius: 5px; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
@@ -29,7 +29,7 @@
             <h1 id="questionText">Will you be my Valentine? ❤️</h1>
             <div class="btn-wrapper">
                 <button id="yesBtn" onclick="showGift()">YES</button>
-                <button id="noBtn" onmouseover="moveButton()" onclick="deadToMe()">NO</button>
+                <button id="noBtn" onclick="deadToMe()">NO</button>
             </div>
         </div>
 
@@ -37,9 +37,9 @@
             <h1>🥰 Wise Choice.</h1>
             <p>I knew you weren't actually trying to end us.</p>
             <div class="gift-box">
-                <p>Enjoy your gift:</p>
-                <span class="claim-code">Text me and ill send u the amazon gift code so u can use the website to redeem it <3</span>
-                <a href="https://www.amazon.com/gc/redeem" target="_blank" style="color: #232f3e; font-weight: bold;">Redeem Now</a>
+                <p>Treat yourself to something nice:</p>
+                <span class="claim-code">PASTE-YOUR-AMAZON-CODE-HERE</span>
+                <a href="https://www.amazon.com/gc/redeem" target="_blank" style="color: #232f3e; font-weight: bold; text-decoration: underline;">Redeem Now</a>
             </div>
         </div>
     </div>
@@ -47,37 +47,32 @@
     <script>
         let noCount = 0;
         const messages = [
-            "bruh?",
-            "layla bro",
-            "Are you sure?",
-            "I'm gonna kill u",
-            "I'm deleting the Amazon code as we speak.",
-            "STOP CLICKING NO!"
+            "Wait, what? Try again.",
+            "Seriously? Michael Messier is right here.",
+            "I literally graduated Summa Cum Laude for you.",
+            "You are testing my cybersecurity limits.",
+            "If you click this again, you're dead to me.",
+            "Okay, that's it. Relationship: TERMINATED.",
+            "Access Revoked. Status: DEAD TO ME.",
+            "Stop playing with fire. Click YES."
         ];
 
-        function moveButton() {
-            const btn = document.getElementById('noBtn');
-            // Makes the movement radius larger as she tries more
-            const padding = 50;
-            const x = Math.random() * (window.innerWidth - btn.clientWidth - padding);
-            const y = Math.random() * (window.innerHeight - btn.clientHeight - padding);
-            
-            btn.style.position = 'fixed';
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
-        }
-
         function deadToMe() {
-            noCount++;
             const question = document.getElementById('questionText');
+            const yesBtn = document.getElementById('yesBtn');
             
             if (noCount < messages.length) {
                 question.innerText = messages[noCount];
-                // Make the Yes button grow every time she tries to say No
-                document.getElementById('yesBtn').style.transform = `scale(${1 + (noCount * 0.2)})`;
+                // Every time she hits No, the Yes button gets bigger and the No button gets smaller
+                let currentScale = 1 + (noCount * 0.15);
+                yesBtn.style.transform = `scale(${currentScale})`;
+                document.getElementById('noBtn').style.transform = `scale(${1 - (noCount * 0.05)})`;
+                noCount++;
             } else {
-                alert("ACCESS DENIED: You are dead to me. Click YES to be resurrected.");
-                noCount = 0; // Reset messages
+                alert("CRITICAL ERROR: User 'Girlfriend' has been marked as 'Dead to Me'. Please click YES to restore access.");
+                noCount = 0; // Reset the loop
+                question.innerText = "Will you be my Valentine? ❤️";
+                yesBtn.style.transform = "scale(1)";
             }
         }
 
